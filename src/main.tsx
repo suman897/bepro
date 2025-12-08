@@ -23,7 +23,7 @@ import "./index.css";
 // --- Assets & Data ---
 
 // Use the uploaded image file for the logo
-const LOGO_IMAGE_PATH: string = "/Bepro_Logo-Black.png";
+const LOGO_IMAGE_PATH: string = "Bepro_Logo-Black.png";
 
 // --- Theme Type Definition ---
 type Theme = "dark" | "light";
