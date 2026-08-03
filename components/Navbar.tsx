@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { getAssetPath } from "@/lib/utils";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,7 +50,7 @@ export default function Navbar() {
             />
             <div className="relative w-44 sm:w-48 h-12 sm:h-14 group-hover:scale-105 transition-transform duration-300">
               <Image
-                src="/logo-new-theme.png"
+                src={getAssetPath("/logo-new-theme.png")}
                 alt="BEPRO Logo"
                 fill
                 sizes="(max-width: 768px) 180px, 220px"

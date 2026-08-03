@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp, Sparkles } from "lucide-react";
+import { getAssetPath } from "@/lib/utils";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -36,7 +37,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center group">
               <div className="relative w-36 h-10 group-hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/logo-new-theme.png"
+                  src={getAssetPath("/logo-new-theme.png")}
                   alt="BEPRO Logo"
                   fill
                   sizes="(max-width: 768px) 120px, 150px"

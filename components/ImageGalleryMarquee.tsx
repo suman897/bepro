@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Sparkles, MapPin } from "lucide-react";
+import { getAssetPath } from "@/lib/utils";
 
 interface GalleryItem {
   title: string;
@@ -135,7 +136,7 @@ export default function ImageGalleryMarquee() {
               className="relative h-60 w-80 sm:h-72 sm:w-[380px] rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/80 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 shrink-0 group bg-slate-100"
             >
               <Image
-                src={item.src}
+                src={getAssetPath(item.src)}
                 alt={item.title}
                 fill
                 sizes="(max-width: 768px) 320px, 380px"

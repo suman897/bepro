@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { getAssetPath } from "@/lib/utils";
 
 interface BrandLogo {
   name: string;
@@ -54,7 +55,7 @@ export default function BrandsMarquee() {
             >
               <div className="relative w-full h-full">
                 <Image
-                  src={brand.src}
+                  src={getAssetPath(brand.src)}
                   alt={`${brand.name} Logo`}
                   fill
                   sizes="(max-width: 768px) 192px, 240px"
