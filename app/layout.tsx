@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     "Event Management",
   ],
   authors: [{ name: "BEPRO Agency" }],
+  verification: {
+    google: "_fePa6wKGHcc3B--hIvhAcnYPyVZxlr1Xb9Fg34ALec",
+  },
   openGraph: {
     title: "BEPRO | Creating Experiences That Build Brands",
     description:
