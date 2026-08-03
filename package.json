@@ -1,30 +1,30 @@
 {
-  "name": "bepro-website",
-  "homepage": "https://suman897.github.io/bepro/",
+  "name": "bepro-app",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "start": "vite",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "autoprefixer": "^10.4.22",
-    "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.4"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.17",
-    "lucide-react": "^0.555.0",
-    "react-dom": "^19.2.1"
+    "framer-motion": "^12.43.0",
+    "lucide-react": "^1.28.0",
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.5.4",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "postcss": "^8.5.25",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5"
   }
 }

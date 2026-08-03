@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEPRO | Creating Experiences That Build Brands</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. VARIABLES & GLOBALS
+           ========================================= */
+        :root {
+            /* Background */
+            --bg: #F9FAFC;
+            --bg-secondary: #FFFFFF;
+            /* Gradients */
+            --gradient-1: #EEF7FF;
+            --gradient-2: #F3ECFF;
+            --gradient-3: #FFF5E9;
+            --gradient-4: #E9FFEC;
+            /* Primary */
+            --primary: #6C63FF;
+            --primary-light: #8F8AFF;
+            /* Accent */
+            --accent: #3DB5FF;
+            --accent2: #FFB347;
+            /* Text */
+            --text: #202124;
+            --text-light: #6B7280;
+            /* Cards */
+            --card: rgba(255, 255, 255, 0.7);
+            --border: #E7ECF3;
+            /* Shadows */
+            --shadow: 0 20px 60px rgba(0,0,0,.08);
+            --shadow-hover: 0 30px 80px rgba(108, 99, 255, 0.15);
+            /* Radius */
+            --radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* =========================================
+           2. ANIMATED BACKGROUND BLOBS
+           ========================================= */
+        .bg-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .blob-1 { width: 500px; height: 500px; background: var(--gradient-1); top: -10%; left: -10%; }
+        .blob-2 { width: 600px; height: 600px; background: var(--gradient-2); top: 40%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 450px; height: 450px; background: var(--gradient-3); bottom: -10%; left: 20%; animation-delay: -10s; }
+        .blob-4 { width: 400px; height: 400px; background: var(--gradient-4); top: 20%; left: 40%; animation-delay: -15s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(10%, 15%) scale(1.1); }
+            100% { transform: translate(-5%, 10%) scale(0.9); }
+        }
+
+        /* =========================================
+           3. UI COMPONENTS
+           ========================================= */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .glass-card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(108, 99, 255, 0.2);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 1.125rem;
+            margin-bottom: 4rem;
+            max-width: 600px;
+        }
+
+        /* SCROLL REVEAL UTILITY */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           4. LAYOUT SECTIONS
+           ========================================= */
+        
+        /* Navbar */
+        nav {
+            padding: 24px 0;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-title {
+            font-size: 4.5rem;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 480px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        .hero-visual {
+            position: relative;
+            height: 500px;
+        }
+        /* Floating Hero Cards */
+        .floating-stat {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
+            padding: 24px 32px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            animation: float 6s infinite alternate ease-in-out;
+        }
+        .stat-1 { top: 10%; right: 10%; animation-delay: 0s; }
+        .stat-2 { bottom: 20%; right: 40%; animation-delay: -2s; z-index: 2; }
+        .stat-3 { top: 50%; left: 0; animation-delay: -4s; }
+        
+        .floating-stat h3 { font-size: 2.5rem; color: var(--primary); }
+        .floating-stat p { color: var(--text-light); font-weight: 500; }
+
+        /* Trusted Brands Marquee */
+        .brands {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.4);
+            overflow: hidden;
+            display: flex;
+            gap: 40px;
+        }
+        .brands p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            opacity: 0.5;
+            white-space: nowrap;
+        }
+
+        /* Services Grid */
+        .section-padding { padding: 120px 0; }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .service-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            background: var(--gradient-1);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 24px;
+            color: var(--primary);
+            font-size: 24px;
+        }
+        .service-title { font-size: 1.5rem; margin-bottom: 12px; }
+        .service-desc { color: var(--text-light); }
+
+        /* Technology Section */
+        .tech-section {
+            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .tech-tag {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s;
+        }
+        .tech-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Process Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 60px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 24px; left: 0; width: 100%; height: 2px;
+            background: var(--border);
+            z-index: -1;
+        }
+        .timeline-step {
+            text-align: center;
+            width: 150px;
+        }
+        .step-dot {
+            width: 50px; height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px auto;
+            font-weight: bold;
+            box-shadow: 0 0 0 10px var(--bg);
+        }
+        .step-title { font-weight: 600; }
+
+        /* Contact Split Layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            background: var(--primary);
+            border-radius: var(--radius);
+            padding: 80px;
+            color: white;
+        }
+        .contact-title { color: white; font-size: 3.5rem; margin-bottom: 24px; }
+        .contact-desc { color: rgba(255,255,255,0.8); font-size: 1.125rem; }
+        
+        .form-group { margin-bottom: 24px; }
+        .form-control {
+            width: 100%;
+            padding: 16px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        .form-control::placeholder { color: rgba(255,255,255,0.6); }
+        .form-control:focus {
+            outline: none;
+            border-color: white;
+        }
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            color: var(--text-light);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+
+        /* =========================================
+           5. RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 992px) {
+            .hero-grid, .contact-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3.5rem; }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .timeline { flex-direction: column; gap: 40px; }
+            .timeline::before {
+                top: 0; left: 24px; width: 2px; height: 100%;
+            }
+            .timeline-step { display: flex; align-items: center; gap: 24px; width: 100%; text-align: left; }
+            .step-dot { margin: 0; }
+            .contact-grid { padding: 40px; }
+        }
+        @media (max-width: 768px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .section-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Gradient Background -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="logo">BEPRO.</a>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#work">Work</a>
+                <a href="#tech">Technology</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <a href="#contact" class="btn btn-outline" style="padding: 10px 24px;">Get in Touch</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content reveal">
+                <h1 class="hero-title">Creating<br>Experiences<br>That Build<br>Brands.</h1>
+                <p class="hero-desc">BEPRO helps brands engage audiences through ATL, BTL, experiential activations, fabrication and technology-driven marketing.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Proposal</a>
+                    <a href="#work" class="btn btn-outline">Our Work</a>
+                </div>
+            </div>
+            <div class="hero-visual reveal">
+                <div class="floating-stat stat-1">
+                    <h3 class="number counter" data-target="250">0</h3>
+                    <p>Campaigns</p>
+                </div>
+                <div class="floating-stat stat-2">
+                    <h3 class="number counter" data-target="30">0</h3>
+                    <p>Cities</p>
+                </div>
+                <div class="floating-stat stat-3">
+                    <h3 class="number counter" data-target="100">0</h3>
+                    <p>Happy Clients</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Brands (CSS Marquee effect mockup) -->
+    <div class="brands">
+        <p>SAMSUNG &nbsp; • &nbsp; GOOGLE &nbsp; • &nbsp; AMAZON &nbsp; • &nbsp; REDBULL &nbsp; • &nbsp; BMW &nbsp; • &nbsp; MICROSOFT &nbsp; • &nbsp; COCA COLA</p>
+        <p>SAMSUNG &nbsp; • &nbsp; GOOGLE &nbsp; • &nbsp; AMAZON &nbsp; • &nbsp; REDBULL &nbsp; • &nbsp; BMW &nbsp; • &nbsp; MICROSOFT &nbsp; • &nbsp; COCA COLA</p>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">Premium Services</h2>
+            <p class="section-subtitle reveal">End-to-end execution for brands that want to stand out.</p>
+            
+            <div class="grid-3">
+                <!-- Card 1 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">⚡</div>
+                    <h3 class="service-title">BTL Activations</h3>
+                    <p class="service-desc">Direct consumer engagement strategies tailored for maximum impact.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">📢</div>
+                    <h3 class="service-title">ATL Campaigns</h3>
+                    <p class="service-desc">Mass media marketing to build brand awareness across regions.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">🎁</div>
+                    <h3 class="service-title">Brand Promotions</h3>
+                    <p class="service-desc">Strategic promotions that drive instant customer conversion.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">🏗️</div>
+                    <h3 class="service-title">Stall Fabrication</h3>
+                    <p class="service-desc">Premium custom setups for exhibitions and corporate events.</p>
+                </div>
+                <!-- Card 5 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">💻</div>
+                    <h3 class="service-title">Tech Marketing</h3>
+                    <p class="service-desc">Innovative digital experiences blending physical and virtual worlds.</p>
+                </div>
+                <!-- Card 6 -->
+                <div class="glass-card reveal">
+                    <div class="service-icon">🎉</div>
+                    <h3 class="service-title">Experiential Events</h3>
+                    <p class="service-desc">Memorable events designed to build emotional brand connections.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Differentiator Section -->
+    <section id="tech" class="section-padding tech-section">
+        <div class="container reveal">
+            <h2 class="section-title">Marketing Meets Technology.</h2>
+            <p class="section-subtitle">We integrate cutting-edge tech to create interactive, data-driven experiences.</p>
+            
+            <div class="tech-tags">
+                <span class="tech-tag">AR Experiences</span>
+                <span class="tech-tag">VR Experiences</span>
+                <span class="tech-tag">Interactive Games</span>
+                <span class="tech-tag">Motion Sensors</span>
+                <span class="tech-tag">RFID Integration</span>
+                <span class="tech-tag">AI Photo Booths</span>
+                <span class="tech-tag">Lead Capture</span>
+                <span class="tech-tag">Touch Screens</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Process Section -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">How We Work</h2>
+            <p class="section-subtitle reveal">A seamless journey from concept to execution.</p>
+            
+            <div class="timeline reveal">
+                <div class="timeline-step">
+                    <div class="step-dot number">1</div>
+                    <p class="step-title">Brief</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-dot number">2</div>
+                    <p class="step-title">Planning</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-dot number">3</div>
+                    <p class="step-title">Design</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-dot number">4</div>
+                    <p class="step-title">Fabrication</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-dot number">5</div>
+                    <p class="step-title">Execution</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-dot number">6</div>
+                    <p class="step-title">Reporting</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="contact-grid reveal">
+                <div class="contact-info">
+                    <h2 class="contact-title">Let's Build<br>Your Next<br>Campaign.</h2>
+                    <p class="contact-desc">Tell us about your goals, and our team will craft a custom strategy and proposal for your brand.</p>
+                </div>
+                <div class="contact-form">
+                    <form onsubmit="event.preventDefault();">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Company" required>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Phone" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Campaign Requirement" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Estimated Budget">
+                        </div>
+                        <button type="submit" class="btn btn-white">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo" style="margin-bottom: 24px;">BEPRO.</div>
+            <ul class="footer-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#work">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+            <p>&copy; 2026 BEPRO Agency. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript for Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Scroll Reveal Animation
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        // 2. Trigger Number Counter Animation when visible
+                        const counters = entry.target.querySelectorAll('.counter');
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const duration = 2000; // 2 seconds
+                            const increment = target / (duration / 16); // 60fps
+                            
+                            let current = 0;
+                            const updateCounter = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = Math.ceil(current) + '+';
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.innerText = target + '+';
+                                }
+                            };
+                            updateCounter();
+                            // Prevent re-animating
+                            counter.classList.remove('counter'); 
+                        });
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.15,
+                rootMargin: "0px"
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 3. Smooth Anchor Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
