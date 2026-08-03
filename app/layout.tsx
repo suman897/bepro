@@ -23,6 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.beprobranding.co.in"),
   title: "BEPRO | Creating Experiences That Build Brands",
   description:
     "BEPRO helps brands engage audiences through ATL, BTL, experiential activations, fabrication and technology-driven marketing.",
