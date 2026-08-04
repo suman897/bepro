@@ -23,8 +23,10 @@ export default function Navbar() {
     { name: "Services", href: "#services" },
     { name: "Technology", href: "#tech" },
     { name: "Process", href: "#process" },
+    { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#contact" },
   ];
+
 
   return (
     <header

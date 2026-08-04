@@ -15,8 +15,10 @@ export default function Footer() {
     { name: "Services", href: "#services" },
     { name: "Technology", href: "#tech" },
     { name: "Process", href: "#process" },
+    { name: "FAQ", href: "#faq" },
     { name: "Contact", href: "#contact" },
   ];
+
 
   const socialLinks = [
     { name: "LinkedIn", href: "https://www.linkedin.com/company/bepro-branding/" },

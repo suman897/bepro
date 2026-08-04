@@ -6,6 +6,7 @@ import ImageGalleryMarquee from "@/components/ImageGalleryMarquee";
 import Services from "@/components/Services";
 import TechStack from "@/components/TechStack";
 import ProcessTimeline from "@/components/ProcessTimeline";
+import FaqSection from "@/components/FaqSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 
@@ -20,8 +21,10 @@ export default function Home() {
       <Services />
       <TechStack />
       <ProcessTimeline />
+      <FaqSection />
       <ContactForm />
       <Footer />
     </main>
   );
 }
+

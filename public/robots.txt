@@ -1,4 +1,12 @@
+# www.robotstxt.org/
+
 User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 Sitemap: https://www.beprobranding.co.in/sitemap.xml
