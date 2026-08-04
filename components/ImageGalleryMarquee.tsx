@@ -137,7 +137,7 @@ export default function ImageGalleryMarquee() {
             >
               <Image
                 src={getAssetPath(item.src)}
-                alt={item.title}
+                alt={`${item.title} - BEPRO Live BTL Activation & Fabrication Execution in ${item.location}`}
                 fill
                 sizes="(max-width: 768px) 320px, 380px"
                 className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

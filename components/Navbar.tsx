@@ -51,7 +51,7 @@ export default function Navbar() {
             <div className="relative w-44 sm:w-48 h-12 sm:h-14 group-hover:scale-105 transition-transform duration-300">
               <Image
                 src={getAssetPath("/logo-new-theme.png")}
-                alt="BEPRO Logo"
+                alt="BEPRO Experiential Marketing & BTL Branding Agency Logo"
                 fill
                 sizes="(max-width: 768px) 180px, 220px"
                 className="object-contain object-left"

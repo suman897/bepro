@@ -56,7 +56,7 @@ export default function BrandsMarquee() {
               <div className="relative w-full h-full">
                 <Image
                   src={getAssetPath(brand.src)}
-                  alt={`${brand.name} Logo`}
+                  alt={`${brand.name} Client Logo - BEPRO Experiential Marketing & BTL Partner`}
                   fill
                   sizes="(max-width: 768px) 192px, 240px"
                   className="object-contain"

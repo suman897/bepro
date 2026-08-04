@@ -38,7 +38,7 @@ export default function Footer() {
               <div className="relative w-36 h-10 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src={getAssetPath("/logo-new-theme.png")}
-                  alt="BEPRO Logo"
+                  alt="BEPRO Experiential Marketing & BTL Branding Agency Logo"
                   fill
                   sizes="(max-width: 768px) 120px, 150px"
                   className="object-contain object-left"
