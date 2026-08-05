@@ -88,9 +88,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png" },
       { url: "/icon.png", type: "image/png" },
     ],
-    apple: [{ url: "/apple-icon.png", type: "image/png" }],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/favicon.png", type: "image/png" }],
   },
 };
 
@@ -107,6 +109,9 @@ export default function RootLayout({
     >
       <head>
         <JsonLd />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         {/* Google Analytics (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-0276LY8Q49"
