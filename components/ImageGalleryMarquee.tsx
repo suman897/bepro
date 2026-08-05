@@ -114,7 +114,7 @@ export default function ImageGalleryMarquee() {
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-poppins font-extrabold text-[#0F172A] leading-[1.08] tracking-tight">
               <span className="block">REAL-WORLD</span>
-              <span className="block text-[#6C63FF]">CAMPAIGN GALLERY.</span>
+              <span className="block text-[#6C63FF]">CAMPAIGN GALLERY</span>
             </h2>
           </div>
 

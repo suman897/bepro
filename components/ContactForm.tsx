@@ -63,7 +63,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#6C63FF]/20 text-[#6C63FF] text-xs font-bold uppercase tracking-widest bg-[#6C63FF]/5">
                 <Sparkles className="w-3.5 h-3.5 text-[#6C63FF]" />
@@ -74,32 +74,32 @@ export default function ContactForm() {
             <div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[62px] font-poppins font-extrabold text-[#111111] tracking-tight leading-tight">
                 <motion.span
-                  initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                   className="inline"
                 >
                   LET&apos;S BUILD YOUR NEXT{" "}
                 </motion.span>
                 <motion.span
-                  initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                   className="inline-block font-black bg-gradient-to-r from-[#6C63FF] via-[#5851EA] to-[#3DB5FF] bg-clip-text text-transparent animate-gradient-slow drop-shadow-[0_4px_25px_rgba(108,99,255,0.2)]"
                 >
-                  EXPERIENCE.
+                  EXPERIENCE
                 </motion.span>
               </h2>
             </div>
 
             {/* White Outlined Button Directly Below Headline */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 180, damping: 22, delay: 0.55 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="pt-2"
             >
               <a
@@ -121,7 +121,7 @@ export default function ContactForm() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.65 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#64748B]"
             >
               <Award className="w-4 h-4 text-[#6C63FF]" />
@@ -130,13 +130,13 @@ export default function ContactForm() {
 
             {/* Clean Information Strip */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-              {contactItems.map((item, idx) => (
+              {contactItems.map((item) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.7 + idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                   className="space-y-1.5 group cursor-pointer"
                 >
                   <p className="text-[11px] font-bold uppercase tracking-widest text-[#94A3B8]">

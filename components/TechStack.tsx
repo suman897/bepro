@@ -206,7 +206,7 @@ export default function TechStack() {
             <span>Technology Differentiator</span>
           </div>
           <h2 className="text-4xl sm:text-5xl font-poppins font-extrabold text-[#111827] tracking-tight">
-            Marketing Meets Technology.
+            Marketing Meets Technology
           </h2>
           <p className="text-[#64748B] text-lg max-w-xl mx-auto leading-relaxed">
             We combine physical activations with interactive hardware & AI software to capture actionable leads.

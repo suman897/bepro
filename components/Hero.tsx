@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
@@ -10,7 +9,6 @@ function Counter({
   suffix = "+",
   triggerKey = 0,
   className = "text-[#6C63FF]",
-  delay = 0,
 }: {
   target: number;
   suffix?: string;
@@ -46,29 +44,25 @@ function Counter({
 
     if (isInView && !hasAnimated.current) {
       hasAnimated.current = true;
-      const timeout = setTimeout(() => {
-        let start = 0;
-        const duration = 1200;
-        const steps = 35;
-        const increment = target / steps;
-        const stepTime = duration / steps;
+      let start = 0;
+      const duration = 1000;
+      const steps = 35;
+      const increment = target / steps;
+      const stepTime = duration / steps;
 
-        const timer = setInterval(() => {
-          start += increment;
-          if (start >= target) {
-            setCount(target);
-            clearInterval(timer);
-          } else {
-            setCount(Math.ceil(start));
-          }
-        }, stepTime);
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          setCount(target);
+          clearInterval(timer);
+        } else {
+          setCount(Math.ceil(start));
+        }
+      }, stepTime);
 
-        return () => clearInterval(timer);
-      }, delay * 1000);
-
-      return () => clearTimeout(timeout);
+      return () => clearInterval(timer);
     }
-  }, [isInView, target, triggerKey, delay]);
+  }, [isInView, target, triggerKey]);
 
   return (
     <span ref={ref} className={`font-number text-4xl lg:text-5xl font-extrabold ${className}`}>
@@ -82,13 +76,6 @@ export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, rawX: 0, rawY: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  const [isInitialTop, setIsInitialTop] = useState(true);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.scrollY > 100) {
-      setIsInitialTop(false);
-    }
-  }, []);
 
   // Recount keys for click interactivity
   const [recountKeys, setRecountKeys] = useState<{ [key: string]: number }>({
@@ -101,7 +88,7 @@ export default function Hero() {
     setRecountKeys((prev) => ({ ...prev, [key]: prev[key] + 1 }));
   };
 
-  // Mouse move handler for 3D card tilt & parallax (Scene 10)
+  // Mouse move handler for 3D card tilt & parallax
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!heroRef.current) return;
     const rect = heroRef.current.getBoundingClientRect();
@@ -126,8 +113,6 @@ export default function Hero() {
 
   // Scroll compression & card drift animation
   const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.35]);
-  const heroScrollScale = useTransform(scrollY, [0, 600], [1, 0.95]);
   const topCardDriftY = useTransform(scrollY, [0, 600], [0, -70]);
   const bottomCardDriftY = useTransform(scrollY, [0, 600], [0, 70]);
 
@@ -138,23 +123,12 @@ export default function Hero() {
       onMouseLeave={handleMouseLeave}
       className="min-h-screen relative flex items-center pt-32 pb-20 overflow-hidden bg-white select-none"
     >
-      {/* SCENE 1 (0.0s - 0.8s): White background with subtle animated blue/purple glow */}
+      {/* Background radial glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{
-            opacity: [0.3, 0.55, 0.35],
-            scale: [0.95, 1.15, 1],
-          }}
-          transition={{
-            opacity: { duration: 10, repeat: Infinity, ease: "easeInOut" },
-            scale: { duration: 10, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className="w-[750px] h-[750px] rounded-full bg-radial from-[#6C63FF]/15 via-[#3DB5FF]/10 to-transparent filter blur-3xl"
-        />
+        <div className="w-[750px] h-[750px] rounded-full bg-radial from-[#6C63FF]/15 via-[#3DB5FF]/10 to-transparent filter blur-3xl animate-pulse" />
       </div>
 
-      {/* SCENE 10: Mouse Spotlight Glow */}
+      {/* Mouse Spotlight Glow */}
       {isHovered && (
         <div
           className="absolute inset-0 pointer-events-none transition-opacity duration-500"
@@ -164,114 +138,43 @@ export default function Hero() {
         />
       )}
 
-      {/* Fully assembled hero section container */}
+      {/* Hero section container */}
       <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-        {/* Left Column Content (Static, no mouse tilt) */}
-        <div className="lg:col-span-7 space-y-6">
-          {/* SCENE 3 (1.8s - 2.6s): Outline draws left-to-right, text fades in, sparkle rotates 20° & settles */}
-          <div className="relative inline-block overflow-hidden p-[1px] rounded-full">
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ originX: 0 }}
-              className="absolute inset-0 bg-gradient-to-r from-[#6C63FF] via-[#3DB5FF] to-[#818CF8] rounded-full p-[1px]"
-            />
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 2.0 }}
-              className="relative inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-xl shadow-sm"
-            >
-              <motion.div
-                initial={{ rotate: 20 }}
-                animate={{ rotate: 0 }}
-                transition={{ duration: 0.6, delay: 2.1, type: "spring", stiffness: 200 }}
-              >
-                <Sparkles className="w-4 h-4 text-[#6C63FF]" />
-              </motion.div>
-              <span className="text-xs font-semibold tracking-wider text-[#6C63FF] uppercase">
-                ATL • BTL • Experiential Activations
-              </span>
-            </motion.div>
+        {/* Left Column Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="lg:col-span-7 space-y-6"
+        >
+          {/* Pill Badge */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/90 border border-[#6C63FF]/25 backdrop-blur-xl shadow-sm">
+            <Sparkles className="w-4 h-4 text-[#6C63FF]" />
+            <span className="text-xs font-semibold tracking-wider text-[#6C63FF] uppercase">
+              ATL • BTL • Experiential Activations
+            </span>
           </div>
 
-          {/* SCENE 4 (2.6s - 4.2s): Headline phrase-by-phrase assembly */}
+          {/* Headline */}
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-poppins font-extrabold text-[#0F172A] tracking-tight leading-[1.1]">
-            {/* "Creating" drops in */}
-            <motion.span
-              initial={{ opacity: 0, y: -25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 180,
-                damping: 22,
-                delay: 2.6,
-              }}
-              className="block"
-            >
-              Creating
-            </motion.span>
-
-            {/* "Experiences" reveals left-to-right with moving gradient */}
-            <motion.span
-              initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-              animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-              transition={{
-                duration: 1.0,
-                delay: 3.2,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="inline-block bg-gradient-to-r from-[#6C63FF] via-[#818CF8] to-[#3DB5FF] bg-clip-text text-transparent animate-gradient-slow"
-            >
+            <span className="block">Creating</span>
+            <span className="inline-block bg-gradient-to-r from-[#6C63FF] via-[#818CF8] to-[#3DB5FF] bg-clip-text text-transparent animate-gradient-slow">
               Experiences
-            </motion.span>{" "}
+            </span>{" "}
             <br />
-
-            {/* "That Build Brands." rises into place */}
-            <motion.span
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 180,
-                damping: 22,
-                delay: 3.8,
-              }}
-              className="block"
-            >
-              That Build Brands
-            </motion.span>
+            <span className="block">That Build Brands</span>
           </h1>
 
-          {/* SCENE 5 (4.2s - 5.0s): Supporting paragraph line-by-line fade upward */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 4.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-lg sm:text-xl text-[#64748B] max-w-xl leading-relaxed"
-          >
+          {/* Paragraph */}
+          <p className="text-lg sm:text-xl text-[#64748B] max-w-xl leading-relaxed">
             BEPRO helps brands engage audiences through ATL, BTL, experiential
             activations, custom stall fabrication, and technology-driven marketing solutions.
-          </motion.p>
+          </p>
 
-          {/* SCENE 6 (5.0s - 5.8s): Reveal CTA buttons */}
+          {/* CTA buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-2">
             {/* Primary Button */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 180, damping: 20, delay: 5.0 }}
-              whileHover={{ y: -4, scale: 1.03 }}
-              className="relative group"
-            >
-              {/* Single Soft Glow Pulse at 5.5s */}
-              <motion.div
-                initial={{ scale: 1, opacity: 0 }}
-                animate={{ scale: [1, 1.3, 1], opacity: [0, 0.6, 0] }}
-                transition={{ duration: 1.8, delay: 5.5, ease: "easeOut" }}
-                className="absolute inset-0 bg-[#6C63FF]/50 rounded-full blur-xl pointer-events-none"
-              />
+            <motion.div whileHover={{ y: -4, scale: 1.03 }} className="relative group">
               <a
                 href="https://wa.me/917875835070?text=Hi%20BEPRO%20Team%2C%20I%20would%20like%20to%20get%20in%20touch%20regarding%20a%20campaign."
                 target="_blank"
@@ -284,12 +187,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Secondary Button */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ type: "spring", stiffness: 180, damping: 20, delay: 5.2 }}
-              whileHover={{ y: -4, scale: 1.03 }}
-            >
+            <motion.div whileHover={{ y: -4, scale: 1.03 }}>
               <a
                 href="#our-work"
                 onClick={(e) => {
@@ -302,10 +200,7 @@ export default function Hero() {
                     const brandsRect = brandsEl.getBoundingClientRect();
                     const brandsTop = brandsRect.top + window.scrollY;
                     const brandsHeight = brandsRect.height;
-
-                    // Scroll position: Align bottom 50% of logo marquee below the fixed header
                     const targetScroll = brandsTop + brandsHeight * 0.5 - navHeight;
-
                     window.scrollTo({
                       top: Math.max(0, targetScroll),
                       behavior: "smooth",
@@ -320,49 +215,40 @@ export default function Hero() {
               </a>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column Interactive Statistics Cards */}
-        <div className="lg:col-span-5 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="lg:col-span-5 w-full"
+        >
           {/* Mobile Layout (< sm): Sleek Horizontal 3-Metric Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="sm:hidden w-full pt-6"
-          >
+          <div className="sm:hidden w-full pt-6">
             <div className="bg-white/90 backdrop-blur-xl border border-slate-200/80 rounded-2xl p-4 shadow-lg shadow-slate-900/5 grid grid-cols-3 gap-2 text-center divide-x divide-slate-100">
               <div onClick={() => handleCardClick("cities")} className="cursor-pointer px-1">
-                <Counter target={62} triggerKey={recountKeys.cities} className="text-[#6C63FF] !text-2xl sm:!text-3xl" delay={0.1} />
+                <Counter target={62} triggerKey={recountKeys.cities} className="text-[#6C63FF] !text-2xl sm:!text-3xl" />
                 <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mt-0.5">Cities</p>
               </div>
               <div onClick={() => handleCardClick("campaigns")} className="cursor-pointer px-1">
-                <Counter target={500} triggerKey={recountKeys.campaigns} className="text-[#0F172A] !text-2xl sm:!text-3xl" delay={0.3} />
+                <Counter target={500} triggerKey={recountKeys.campaigns} className="text-[#0F172A] !text-2xl sm:!text-3xl" />
                 <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mt-0.5">Campaigns</p>
               </div>
               <div onClick={() => handleCardClick("clients")} className="cursor-pointer px-1">
-                <Counter target={100} triggerKey={recountKeys.clients} className="text-[#0F172A] !text-2xl sm:!text-3xl" delay={0.5} />
+                <Counter target={100} triggerKey={recountKeys.clients} className="text-[#0F172A] !text-2xl sm:!text-3xl" />
                 <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mt-0.5">Clients</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Desktop/Tablet Floating Cinematic Layout (>= sm) */}
+          {/* Desktop/Tablet Floating Layout (>= sm) */}
           <div className="hidden sm:flex relative h-[460px] sm:h-[520px] w-full items-center justify-center">
-            {/* SCENE 7 (5.8s - 6.7s): Purple "62+ Cities Covered" card rises with spring motion & count-up */}
-            <motion.div
+            {/* Purple "62+ Cities Covered" card */}
+            <div
               onClick={() => handleCardClick("cities")}
-              initial={{ opacity: 0, y: 45, rotate: 5, scale: 0.85 }}
-              animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 180,
-                damping: 24,
-                delay: isInitialTop ? 5.8 : 0,
-              }}
               className="absolute top-[36%] left-[0%] min-w-[210px] z-20 cursor-pointer group select-none"
             >
-              {/* SCENE 10: Idle Floating & 3D Mouse Tilt */}
               <motion.div
                 animate={{
                   y: [0, 10, 0],
@@ -370,7 +256,7 @@ export default function Hero() {
                   rotateY: mousePos.x * 15,
                 }}
                 transition={{
-                  y: { duration: 5.1, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.4 },
+                  y: { duration: 5.1, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
                   rotateX: { type: "spring", stiffness: 150, damping: 25 },
                   rotateY: { type: "spring", stiffness: 150, damping: 25 },
                 }}
@@ -380,27 +266,18 @@ export default function Hero() {
               >
                 <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div>
-                  <Counter target={62} triggerKey={recountKeys.cities} className="text-white" delay={5.9} />
+                  <Counter target={62} triggerKey={recountKeys.cities} className="text-white" />
                   <p className="text-sm font-semibold text-white/90 mt-1">Cities Covered</p>
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
 
-            {/* SCENE 8 (6.7s - 7.6s): Top "500+ Campaigns Executed" card slides downward with spring motion & count-up */}
+            {/* Top "500+ Campaigns Executed" card */}
             <motion.div
               style={{ y: topCardDriftY }}
               onClick={() => handleCardClick("campaigns")}
-              initial={{ opacity: 0, y: -45, scale: 0.85 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 180,
-                damping: 24,
-                delay: isInitialTop ? 6.7 : 0,
-              }}
               className="absolute top-[2%] right-[0%] min-w-[210px] cursor-pointer group select-none"
             >
-              {/* SCENE 10: Idle Floating & 3D Mouse Tilt */}
               <motion.div
                 animate={{
                   y: [0, -12, 0],
@@ -418,7 +295,7 @@ export default function Hero() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer pointer-events-none" />
                 <div>
-                  <Counter target={500} triggerKey={recountKeys.campaigns} delay={6.8} />
+                  <Counter target={500} triggerKey={recountKeys.campaigns} />
                   <p className="text-sm font-semibold text-[#64748B] mt-1 group-hover:text-[#0F172A] transition-colors">
                     Campaigns Executed
                   </p>
@@ -426,21 +303,12 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* SCENE 9 (7.6s - 8.5s): Bottom "100+ Happy Corporate Clients" card slides upward with spring motion & count-up */}
+            {/* Bottom "100+ Happy Corporate Clients" card */}
             <motion.div
               style={{ y: bottomCardDriftY }}
               onClick={() => handleCardClick("clients")}
-              initial={{ opacity: 0, y: 45, scale: 0.85 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 180,
-                damping: 24,
-                delay: isInitialTop ? 7.6 : 0,
-              }}
               className="absolute bottom-[2%] right-[4%] min-w-[210px] cursor-pointer group select-none"
             >
-              {/* SCENE 10: Idle Floating & 3D Mouse Tilt */}
               <motion.div
                 animate={{
                   y: [0, -8, 0],
@@ -448,7 +316,7 @@ export default function Hero() {
                   rotateY: mousePos.x * 12,
                 }}
                 transition={{
-                  y: { duration: 4.6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay: 0.8 },
+                  y: { duration: 4.6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
                   rotateX: { type: "spring", stiffness: 150, damping: 25 },
                   rotateY: { type: "spring", stiffness: 150, damping: 25 },
                 }}
@@ -458,7 +326,7 @@ export default function Hero() {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent animate-shimmer pointer-events-none" />
                 <div>
-                  <Counter target={100} triggerKey={recountKeys.clients} delay={7.7} />
+                  <Counter target={100} triggerKey={recountKeys.clients} />
                   <p className="text-sm font-semibold text-[#64748B] mt-1 group-hover:text-[#0F172A] transition-colors">
                     Happy Corporate Clients
                   </p>
@@ -466,7 +334,7 @@ export default function Hero() {
               </motion.div>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

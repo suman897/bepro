@@ -37,19 +37,13 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Scene 2: Logo fades in at 0.8s with move down 15px & blur transition */}
+        {/* Logo */}
         <motion.div
-          initial={{ opacity: 0, y: -15, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <Link href="/" className="flex items-center group relative">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: [0.8, 1.4, 1], opacity: [0, 0.4, 0] }}
-              transition={{ duration: 1.5, delay: 0.9, ease: "easeOut" }}
-              className="absolute inset-0 bg-[#6C63FF]/30 blur-xl rounded-full pointer-events-none"
-            />
             <div className="relative w-44 sm:w-48 h-12 sm:h-14 group-hover:scale-105 transition-transform duration-300">
               <Image
                 src={getAssetPath("/logo-new-theme.png")}
@@ -63,18 +57,14 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        {/* Scene 2: Nav links appear sequentially with 80ms stagger starting at 1.0s */}
+        {/* Nav links */}
         <nav className="hidden md:flex items-center gap-2 lg:gap-3">
-          {navLinks.map((link, idx) => (
+          {navLinks.map((link) => (
             <motion.div
               key={link.name}
-              initial={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.6,
-                delay: 1.0 + idx * 0.08,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
             >
               <Link
                 href={link.href}
@@ -87,16 +77,11 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Scene 2: CTA Button slides from right with spring easing at 1.3s */}
+        {/* CTA Button */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 200,
-            damping: 20,
-            delay: 1.3,
-          }}
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
           className="hidden md:flex items-center gap-4"
         >
           <a
