@@ -1,15 +1,34 @@
 import React from "react";
 
 export default function JsonLd() {
-  const localBusinessSchema = {
+  const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": ["ProfessionalService", "LocalBusiness", "Organization"],
+    "@type": "Organization",
     "@id": "https://www.beprobranding.co.in/#organization",
     name: "BEPRO Branding",
     alternateName: "BEPRO Experiential Marketing & BTL Agency",
     url: "https://www.beprobranding.co.in",
-    logo: "https://www.beprobranding.co.in/logo-new.png",
-    image: "https://www.beprobranding.co.in/icon.png",
+    logo: "https://www.beprobranding.co.in/logo-new-theme.png",
+    image: "https://www.beprobranding.co.in/og-image.png",
+    description:
+      "BEPRO helps top brands engage audiences across India through BTL activations, ATL campaigns, experiential marketing pop-ups, custom stall fabrication, and tech marketing.",
+    telephone: "+91-7875835070",
+    email: "info@beprobranding.co.in",
+    sameAs: [
+      "https://www.linkedin.com/company/bepro-branding/",
+      "https://www.instagram.com/bepro_branding",
+    ],
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": "https://www.beprobranding.co.in/#localbusiness",
+    name: "BEPRO Branding",
+    alternateName: "BEPRO Experiential Marketing & BTL Agency",
+    url: "https://www.beprobranding.co.in",
+    logo: "https://www.beprobranding.co.in/logo-new-theme.png",
+    image: "https://www.beprobranding.co.in/og-image.png",
     description:
       "BEPRO is a leading BTL activation, experiential marketing, stall fabrication, and tech-driven branding agency executing nationwide campaigns across India.",
     telephone: "+91-7875835070",
@@ -158,6 +177,12 @@ export default function JsonLd() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

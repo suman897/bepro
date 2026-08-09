@@ -71,10 +71,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/icon.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BEPRO Experiential Marketing & BTL Activations Agency",
+        alt: "BEPRO Experiential Marketing & BTL Activations Agency Logo",
       },
     ],
   },
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     title: "BEPRO | BTL Activations & Experiential Marketing Agency",
     description:
       "Creating experiences that build brands. Nationwide BTL activations, custom stall fabrication, and tech marketing across India.",
-    images: ["/icon.png"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [
