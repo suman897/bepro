@@ -73,6 +73,11 @@ const galleryItems: GalleryItem[] = [
     src: "/image-gallery/bepro-tvs-activation.jpeg",
   },
   {
+    title: "TCS World 10K Marathon",
+    location: "Bengaluru",
+    src: "/image-gallery/bepro-bisleri-tcs-world-10k-marathon-bengaluru.jpeg",
+  },
+  {
     title: "OWND! Mascot Activity",
     location: "Metro Hub",
     src: "/image-gallery/bepro-ownd-activation.jpeg",
